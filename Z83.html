@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Z83 Application Form</title>
+   <meta charset="UTF-8">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <!-- Bootstrap CSS via CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+<!-- Navbar -->
+  <!-- NAV -->
+<nav aria-label="Primary navigation">
+  <div class="nav-inner">
+    <a class="logo" href="#"><span class="seal">🏛️</span> <span>Gov Jobs SA</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link active">Home</a>
+      
+    </div>
+    <div class="nav-actions">
+      <a href="mainlogin.html" class="btn ghost">Login</a>
+      <a href="register.html" class="btn primary">Sign Up</a>
+    </div>
+  </div>
+</nav>
+
+  <div class="form-header">
+  <div class="form-title">
+    <img src="Images/gov.webp" alt="Organization Logo" width="70" height="70"><h1>Republic of South Africa</h1>
+    <h2>APPLICATION FOR EMPLOYMENT</h2>
+    <p class="form-ref">Z83 (81/971431)</p>
+  </div>
+</div>
+
+ 
+  <div class="form-container">
+
+    <!-- Instructions -->
+    <section class="info-section">
+      <h3>WHAT IS THE PURPOSE OF THIS FORM</h3>
+      <p>To assist a government department in selecting a person for an advertised post.</p>
+      <p>This form may be used to identify candidates to be interviewed. <b>You need to fill in all sections of this form</b> completely, accurately and legibly. This will help to process your application fairly.</p>
+
+      <h3>WHO SHOULD COMPLETE THIS FORM</h3>
+      <p>Only persons wishing to apply for an advertised position in a government department.</p>
+
+      <h3>ADDITIONAL INFORMATION</h3>
+      <p>This form requires basic information. Candidates who are selected for interviews will be requested to furnish additional certified information that may be required to make a final selection.</p>
+
+      <h3>SPECIAL NOTES</h3>
+      <ol>
+        <li>All information will be treated with the strictest confidentiality and will not be disclosed or used for any other purpose than to assess the suitability of a person, except in so far as it may be required and permitted by law. Your personal details must correspond with the details in your ID or passport.</li>
+        <li>Passport number in the case of non-South Africans.</li>
+        <li>This information is required to enable the department to comply with the Employment Equity Act, 1998.</li>
+        <li>This information will only be taken into account if it directly relates to the requirements of the position.</li>
+        <li>The Executive Authority shall consider the criminal record(s) against the nature of the job functions in line with internal information security and disciplinary code.</li>
+        <li>The applicat may submit additional information separately where the space provided is not sufficient.</li>
+        <li>Departments must accept certified documents that accompany the application(s) with certification that is up to 6 months, unless the advert prescribes a longer period.</li>
+        <li>Each application for employment form must be duly signed and initialed by the applicant. Failure to sign this form may lead to disqualification of the application during the selection process.</li>
+      </ol>
+    </section>
+
+    <!-- Section A -->
+    <section>
+      <h3>A. THE ADVERTISED POST <span>(All sections of this form are compulsory)</span></h3>
+
+      <label>Position for which you are applying (as advertised):<br>
+        <input type="text" name="position">
+      </label>
+
+      <label>Department where the position was advertised:<br>
+        <input type="text" name="department">
+      </label>
+
+      <label>Reference number (as stated in the advert):<br>
+        <input type="text" name="ref_number">
+      </label>
+
+      <label>If you are offered the position, when can you start OR how much notice must you serve with your current employer?<br>
+        <input type="text" name="start_availability">
+      </label>
+    </section>
+
+    <!-- Section B -->
+    <section>
+      <h3>B. PERSONAL INFORMATION</h3>
+
+      <label>Surname and Full names:<br>
+        <input type="text" name="full_name">
+      </label>
+
+      <div class="row-3">
+        <label>Date of Birth (MM/DD/YY):<br><input type="date" name="dob"></label>
+        <label>Identity Number:<br><input type="text" name="id_number"></label>
+        <label>Passport Number:<br><input type="text" name="passport"></label>
+      </div>
+
+      <div class="row-3">
+        <label>Race:<br>
+          <select>
+            <option>African</option>
+            <option>White</option>
+            <option>Coloured</option>
+            <option>Indian</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label>Gender:<br>
+          <select>
+            <option>Female</option>
+            <option>Male</option>
+          </select>
+        </label>
+
+        <label>Disability:<br>
+          <select>
+            <option>No</option>
+            <option>Yes</option>
+          </select>
+        </label>
+      </div>
+
+      <label>Are you a South African citizen?
+        <select><option>Yes</option><option>No</option></select>
+      </label>
+
+      <label>If No, what is your nationality?<br>
+        <input type="text" name="nationality">
+      </label>
+
+      <label>Do you have a valid work permit (only if non-South African)?
+        <select><option>Yes</option><option>No</option></select>
+      </label>
+
+<section>
+  <label>Have you been convicted or found guilty of a criminal offence (including admission of guilt)?<br>
+    <select><option>No</option><option>Yes</option></select>
+    <input type="text" name="criminal_details" placeholder="If yes, provide details">
+  </label>
+
+  <label>Do you have any pending criminal case against you?<br>
+    <select><option>No</option><option>Yes</option></select>
+    <input type="text" name="pending_case_details" placeholder="If yes, provide details">
+  </label>
+
+  <label>Have you ever been dismissed for misconduct from the Public Service?<br>
+    <select><option>No</option><option>Yes</option></select>
+    <input type="text" name="dismissal_details" placeholder="If yes, provide details">
+  </label>
+
+  <label>Do you have any pending disciplinary case against you?<br>
+    <select><option>No</option><option>Yes</option></select>
+    <input type="text" name="disciplinary_pending" placeholder="If yes, provide details">
+  </label>
+
+  <label>Have you resigned from a recent job pending disciplinary proceedings against you? If yes, (please note that the provisions of the Public Service Act shall apply).<br>
+    <select><option>No</option><option>Yes</option></select>
+  </label>
+
+  <label>Have you been discharged or retired from the Public Service on grounds of ill-health or on condition that you cannot be re-employed?<br>
+    <select><option>No</option><option>Yes</option></select>
+  </label>
+
+  <label>Are you conducting business with the State or are you a Director of a Public or Private company conducting business with the State?<br>
+    <select><option>No</option><option>Yes</option></select>
+    <input type="text" name="business_details" placeholder="If yes, provide details">
+  </label>
+
+  <label>In the event that you are employed in the Public Service, will you immediately relinquish such business interests?<br>
+    <select><option>No</option><option>Yes</option></select>
+  </label>
+
+  <div class="row-2">
+    <label>Please specify the total number of experience you have in Private Sector:<br><input type="number" name="private_exp"></label>
+    <label> Please specify the total number of experience you have in Public Sector:<br><input type="number" name="public_exp"></label>
+  </div>
+
+  <label>If your profession or occupation requires official registration, provide date and particulars of registration:<br>
+    Date: <input type="date" name="reg_date"><br> 
+    Reg. No: <input type="text" name="reg_number">
+  </label>
+</section>
+
+<!-- Section C -->
+<section>
+  <h3>C. CONTACT DETAILS AND MEDIUM OF COMMUNICATIONS</h3>
+
+  <label>Preferred language for correspondence:<br>
+    <input type="text" name="preferred_language">
+  </label>
+
+  <label>Method of correspondence:<br>
+    <input type="checkbox" name="correspondence_method" value="Post"> Post
+    <input type="checkbox" name="correspondence_method" value="Email"> E-mail
+    <input type="checkbox" name="correspondence_method" value="Fax"> Fax
+    <input type="checkbox" name="correspondence_method" value="Telephone"> Telephone
+  </label>
+
+  <label>Contact details (in terms of the above):<br>
+    <input type="text" name="contact_info">
+  </label>
+</section>
+
+<!-- Section D -->
+<section>
+  <h3>D. SOUTH AFRICAN OFFICIAL LANGUAGE PROFICIENCY</h3>
+  <div class="language-table">
+    <label>Language:<br><input type="text" name="lang1"></label>
+    <label>Speak:<br><input type="text" name="speak1"></label>
+    <label>Read or Write:<br><input type="text" name="read1"></label>
+
+    <label>Language:<br><input type="text" name="lang1"></label>
+    <label>Speak:<br><input type="text" name="speak1"></label>
+    <label>Read or Write:<br><input type="text" name="read1"></label>
+
+    <label>Language:<br><input type="text" name="lang2"></label>
+    <label>Speak:<br><input type="text" name="speak2"></label>
+    <label>Read or Write:<br><input type="text" name="read2"></label>
+  </div>
+</section>
+
+<!-- Section E -->
+<section>
+  <h3>E. FORMAL QUALIFICATION (from highest to lowest)</h3>
+  <div class="qualification-table">
+    <label>Name of School/Technical College:<br><input type="text" name="school1"></label>
+    <label>Qualification obtained:<br><input type="text" name="qual1"></label>
+    <label>Year obtained:<br><input type="text" name="year1"></label>
+
+    <label>Name of School/Technical College:<br><input type="text" name="school1"></label>
+    <label>Qualification obtained:<br><input type="text" name="qual1"></label>
+    <label>Year obtained:<br><input type="text" name="year1"></label>
+
+    <label>Name of School/Technical College:<br><input type="text" name="school2"></label>
+    <label>Qualification obtained:<br><input type="text" name="qual2"></label>
+    <label>Year obtained:<br><input type="text" name="year2"></label>
+  </div>
+
+  <label>Current study (institution and qualification):<br>
+    <input type="text" name="current_study">
+  </label>
+</section>
+
+<!-- Section F -->
+<section>
+  <h3>F. WORK EXPERIENCE (Also attach a detailed CV)</h3>
+
+  <div class="work-entry">
+    <label>Employer:<br><input type="text" name="employer1"></label>
+    <label>Post held:<br><input type="text" name="post1"></label>
+    <label>From:<input type="month" name="from1"> To:<input type="month" name="to1"></label>
+    <label>Reason for leaving:<br><input type="text" name="reason1"></label>
+
+    <label>Employer:<br><input type="text" name="employer2"></label>
+    <label>Post held:<br><input type="text" name="post1"></label>
+    <label>From:<input type="month" name="from1"> To:<input type="month" name="to1"></label>
+    <label>Reason for leaving:<br><input type="text" name="reason1"></label>
+  </div>
+
+  <label>If you were previously employed in Public Service, is there any condition that prevents your reappointment?<br>
+    <select><option>No</option><option>Yes</option></select><br>
+    If Yes, provide the name of the previous employing department and indicate the nature of the condition:<br>
+    <input type="text" name="reappointment_reason">
+  </label>
+</section>
+
+<!-- Section G -->
+<section>
+  <h3>G. REFERENCES</h3>
+
+  <div class="reference-table">
+    <label>Name:<br><input type="text" name="ref_name1"></label>
+    <label>Relationship to you:<br><input type="text" name="ref_rel1"></label>
+    <label>Tel. No. (office hours):<br><input type="text" name="ref_tel1"></label>
+
+    <label>Name:<br><input type="text" name="ref_name1"></label>
+    <label>Relationship to you:<br><input type="text" name="ref_rel1"></label>
+    <label>Tel. No. (office hours):<br><input type="text" name="ref_tel1"></label>
+  </div>
+</section>
+
+<!-- Declaration -->
+<section>
+  <h3>DECLARATION</h3>
+  <label>I declare that all the information provided (including any attachments) is complete and correct to the best of my knowledge. I understand that any false information provided will result in my application being disqualified or disciplinary action taken against me if I am appointed:</label>
+
+  <label>Signature:<br><input type="text" name="signature"></label>
+  <label>Date:<br><input type="date" name="sign_date"></label><br>
+</section>
+
+<!-- Buttons -->
+<div class="form-buttons">
+  <button type="button" class="btn save-btn" onclick="saveForm()">Save</button>
+</div>
+    </section>
+  </div>
+  <!--Footer-->
+  <footer class="footer" role="contentinfo">
+      <div class="footer-bottom">
+    &copy; 2025 Gov Jobs SA — Empowering South African careers in public service.
+  </div>
+  </footer>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
