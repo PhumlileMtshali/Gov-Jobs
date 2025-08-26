@@ -11,31 +11,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="Profile.css">
+  <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-<!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="Images/gov.webp" alt="Logo" width="70" height="70">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<nav aria-label="Primary navigation">
+  <div class="nav-inner">
+    <a class="logo" href="#"><span class="seal">🏛️</span> <span>Gov Jobs SA</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="jobs.html" class="nav-link active">Jobs</a>
+      <a href="applications.html" class="nav-link active">Application</a>
+      <a href="Z83.html" class="nav-link active">Z83</a>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="jobs.html">Jobs</a></li>
-          <li class="nav-item"><a class="nav-link" href="applications.html">Application</a></li>
-          <li class="nav-item"><a class="nav-link" href="Z83.html">Z83</a></li>
-          <li class="nav-item"><a class="nav-link" href="Profile.html">Profile</a></li>
-          <li class="nav-item"><a class="nav-link" href="mainlogin.html">Login</a></li>
-        </ul>
-      </div>
+      
     </div>
-  </nav>
+    <div class="nav-actions">
+      <a href="index.html" class="btn primary">Log Out</a>
+    </div>
+  </div>
+</nav>
   <br>
   <section class="profile-section">
     <h2>Personal Details</h2>
@@ -120,16 +114,10 @@
     </form>
   </section>
 <!--Footer-->
-  <footer >
-    
-      <ul >
-        <li><a href="about.html">About</a></li>
-        <li><a href="contacts.html">Contacts</a></li>
-        <li><a href="privacy.html">Privacy Policy</a></li> 
-        <li><a href="faq.html">FAQs</a></li>
-      </ul>
-      <p> &copy; 2025 Government Job Application Portal </p>
-    
+  <footer class="footer" role="contentinfo">
+      <div class="footer-bottom">
+    &copy; 2025 Gov Jobs SA — Empowering South African careers in public service.
+  </div>
   </footer>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

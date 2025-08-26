@@ -832,3 +832,99 @@ select {
     border: 1px solid #cce0ff;
 }
 
+/* ---------------- Profile Section Styling ---------------- */
+.profile-section {
+  width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  background-color: #fdfdfd;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+.profile-section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Supporting Documents heading left-aligned */
+.profile-section h2 + .form-group,
+.profile-section h2:nth-of-type(2) {
+  text-align: left;
+  margin-left: 0;
+}
+
+/* Form Inputs and Selects */
+.profile-section input[type="text"],
+.profile-section input[type="email"],
+.profile-section input[type="tel"],
+.profile-section input[type="date"],
+.profile-section select,
+.profile-section textarea,
+.profile-section input[type="file"] {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+/* Textarea */
+.profile-section textarea {
+  resize: vertical;
+}
+
+/* Labels */
+.profile-section label {
+  display: block;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+/* Form Actions */
+.profile-section .form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.profile-section .form-actions button {
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.profile-section .form-actions button:hover {
+  background-color: #00e676;
+  transform: scale(1.05);
+}
+
+/* File Upload */
+.profile-section input[type="file"] {
+  padding: 5px;
+}
+
+/* Small text for file */
+.profile-section small {
+  display: block;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #555;
+}
+
+
