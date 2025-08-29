@@ -157,7 +157,7 @@ button:hover {
 }
 
 .job-card {
-    width: 400px;
+    width: 500px;
     max-width: 90%;
     background: #e6f0ff;
     border: 1px solid #cce0ff;
@@ -926,5 +926,8 @@ select {
   font-size: 12px;
   color: #555;
 }
+
+
+
 
 
