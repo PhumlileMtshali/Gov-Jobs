@@ -18,8 +18,20 @@
       <a href="Z83.html" class="nav-link active">Z83</a>
       <a href="contacts.html" class="nav-link active">Contact Us</a>
       <a href="faq.html" class="nav-link active">FAQs</a>
-      
+      <a href="notifications.html" class="nav-link active">Notifications</a>
     </div>
+
+    <!-- 🔔 Notification Bell -->
+    <div class="dropdown me-3">
+      <button class="btn btn-light position-relative" id="notifBell" data-bs-toggle="dropdown">
+        🔔
+        <span id="notifCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" id="notifList">
+        <li><span class="dropdown-item-text">No new notifications</span></li>
+      </ul>
+    </div>
+
     <div class="nav-actions">
       <a href="index.html" class="btn primary logout-btn">Log Out</a>
     </div>
@@ -110,6 +122,7 @@
 
         if (res.ok) {
           alert("✅ Application submitted successfully!");
+          loadNotifications(); // refresh notifications
         } else {
           alert("⚠️ Error: " + data.error);
         }
@@ -120,12 +133,44 @@
     }
   });
 
-  // ✅ Load jobs on page load
-  document.addEventListener("DOMContentLoaded", loadJobs);
+  // ✅ Load Notifications
+  async function loadNotifications() {
+    try {
+      const res = await fetch(`http://localhost:5000/api/notifications/${userId}`);
+      const notifs = await res.json();
+
+      const notifCount = document.getElementById("notifCount");
+      const notifList = document.getElementById("notifList");
+
+      notifList.innerHTML = "";
+
+      if (notifs.length === 0) {
+        notifList.innerHTML = "<li><span class='dropdown-item-text'>No new notifications</span></li>";
+        notifCount.textContent = "0";
+        return;
+      }
+
+      notifCount.textContent = notifs.length;
+
+      notifs.forEach(n => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="dropdown-item-text">${n.message}</span>`;
+        notifList.appendChild(li);
+      });
+    } catch (err) {
+      console.error("Error fetching notifications:", err);
+    }
+  }
+
+  // ✅ Load jobs + notifications on page load
+  document.addEventListener("DOMContentLoaded", () => {
+    loadJobs();
+    loadNotifications();
+  });
 
   // ✅ Confirm logout
   document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("logout")) {
+    if (e.target.classList.contains("logout-btn")) {
       e.preventDefault();
       if (confirm("Are you sure you want to log out?")) {
         localStorage.removeItem("token");

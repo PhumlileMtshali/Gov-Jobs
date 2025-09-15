@@ -12,7 +12,7 @@
    ============================== */
 body {
     display: flex;
-    background-color: #66b2ff;
+    background-color: whitesmoke;
     flex-direction: column;
     min-height: 100vh; /* full viewport height */
 }
@@ -66,11 +66,14 @@ nav {
 
 .nav-link:hover,
 .nav-link.active {
-    color: #66b2ff;
+    color: #fff;
     font-weight: bolder;
 }
 
-.nav-actions .btn { margin-left: 10px; }
+.nav-actions .btn { margin-left: 10px;
+border-radius: 999px; }
+
+
 
 /* ==============================
    HEADINGS
@@ -102,6 +105,7 @@ button,
 .btn.primary {
     background-color: #007bff;
     color: white;
+    border-radius: 999px;
 }
 
 .btn.primary:hover,
@@ -395,6 +399,7 @@ select {
 .save-btn {
     background-color: #007bff; /* blue instead of green */
     color: white;
+    border-radius: 800px;
 }
 
 .save-btn:hover {
@@ -557,7 +562,6 @@ select {
     border-radius: 10px;
     overflow: hidden;
 }
-
 
 
 .card-body input.form-control {
@@ -924,7 +928,7 @@ padding-left: 20px;}
   padding: 12px 25px;
   font-size: 16px;
   font-weight: 500;
-  border-radius: 6px;
+  border-radius: 999px;
   border: none;
   cursor: pointer;
   background-color: #007bff;
