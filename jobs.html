@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style2.css">
 </head>
 <body>
- <!-- NAV -->
+<!-- NAV -->
 <nav aria-label="Primary navigation">
   <div class="nav-inner">
     <a class="logo" href="#"><span class="seal">🏛️</span> <span>Gov Jobs SA</span></a>
@@ -49,7 +49,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // ✅ Get logged-in user ID from token
   function getUserIdFromToken() {
     const token = localStorage.getItem("token");
     if (!token) return null;
@@ -67,7 +66,6 @@
     window.location.href = "index.html";
   }
 
-  // ✅ Fetch jobs from backend
   async function loadJobs() {
     try {
       const res = await fetch("http://localhost:5000/api/jobs");
@@ -106,7 +104,6 @@
     }
   }
 
-  // ✅ Handle Apply button click
   document.addEventListener("click", async (e) => {
     if (e.target.classList.contains("apply-btn")) {
       const jobId = e.target.getAttribute("data-job-id");
@@ -115,14 +112,14 @@
         const res = await fetch("http://localhost:5000/api/applications", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, jobId })
+          body: JSON.stringify({ user_id: userId, job_id: jobId }) // ✅ fixed keys
         });
 
         const data = await res.json();
 
         if (res.ok) {
           alert("✅ Application submitted successfully!");
-          loadNotifications(); // refresh notifications
+          loadNotifications();
         } else {
           alert("⚠️ Error: " + data.error);
         }
@@ -133,7 +130,6 @@
     }
   });
 
-  // ✅ Load Notifications
   async function loadNotifications() {
     try {
       const res = await fetch(`http://localhost:5000/api/notifications/${userId}`);
@@ -150,7 +146,8 @@
         return;
       }
 
-      notifCount.textContent = notifs.length;
+      const unread = notifs.filter(n => !n.is_read);
+      notifCount.textContent = unread.length;
 
       notifs.forEach(n => {
         const li = document.createElement("li");
@@ -162,13 +159,11 @@
     }
   }
 
-  // ✅ Load jobs + notifications on page load
   document.addEventListener("DOMContentLoaded", () => {
     loadJobs();
     loadNotifications();
   });
 
-  // ✅ Confirm logout
   document.addEventListener("click", (e) => {
     if (e.target.classList.contains("logout-btn")) {
       e.preventDefault();
@@ -179,6 +174,5 @@
     }
   });
 </script>
-<script src="logout.js"></script>
 </body>
 </html>
