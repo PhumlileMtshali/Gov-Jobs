@@ -135,15 +135,16 @@ button:hover {
 
     .search-section input {
       padding: 10px;
-      width: 500px;
+      width: 300px;
     }
 
     .search-section button {
-      padding: 5px 20px;
+      padding: 15px;
       background-color: #007bff;
       color: white;
       border: none;
       cursor: pointer;
+      width: 100px;
     }
    
 .job-container {
@@ -157,7 +158,7 @@ button:hover {
 }
 
 .job-card {
-    width: 500px;
+    width: 300px;
     max-width: 90%;
     background: #e6f0ff;
     border: 1px solid #cce0ff;
@@ -185,10 +186,31 @@ margin-top: 20px;}
     color: white;
     border-radius: 6px;
     border: none;
+    min-width: 220px;       /* ensures enough width for "Apply Now" */
+    white-space: nowrap;    /* prevents text from wrapping */
 }
+
 
 .job-card button:hover {
     background-color: #0056b3;
+}
+
+/* JOBS STYLING FOR STATIC PAGES*/
+/* Apply Now button inside cards */
+#jobContainer .card .btn-primary {
+    background-color: #007bff ;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    width: 150px;
+    color: #fff;
+    
+}
+
+#jobContainer .card .btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    color: white; /* ensure text stays visible */
 }
 
 /* ==============================
@@ -536,18 +558,13 @@ select {
     overflow: hidden;
 }
 
-.card-header {
-    background-color: #003366;
-    color: white;
-    font-weight: bold;
-    font-size: 1.2rem;
-}
+
 
 .card-body input.form-control {
-    border: 1px solid #cce0ff;
     border-radius: 6px;
     padding: 0.6rem;
     margin-bottom: 1rem;
+   
 }
 
 .card-body input.form-control:focus {
@@ -574,6 +591,10 @@ select {
 .card-body .btn-primary:hover {
     background-color: #0056b3;
     transform: scale(1.03);
+}
+
+.bg-custom{
+    background-color: #0060f9;
 }
 
 /* Links */
@@ -757,6 +778,9 @@ select {
     margin-bottom: 20px;
 }
 
+.contact-page p{text-align: left;
+padding-left: 20px;}
+
 .contact-info {
     max-width: 800px;
     margin: 0 auto 40px auto;
@@ -906,10 +930,11 @@ select {
   background-color: #007bff;
   color: #fff;
   transition: all 0.3s ease;
+  width: 200px;
 }
 
 .profile-section .form-actions button:hover {
-  background-color: #00e676;
+  background-color:#007bff;
   transform: scale(1.05);
 }
 
@@ -926,8 +951,4 @@ select {
   font-size: 12px;
   color: #555;
 }
-
-
-
-
 

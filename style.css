@@ -1,0 +1,208 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  background-color: #66b2ff;
+  
+}
+.dashboard-header {
+  background: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  
+  top: 0;
+  z-index: 1000;
+  text-align: center;
+}
+
+.nav-links a {
+  margin: 0 1.5rem;
+  text-decoration: none;
+  color: #1e3a8a;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #2563EB;
+}
+
+.nav-links a.active {
+  color: #2563EB;
+  border-bottom: 2px solid #2563EB;
+  padding-bottom: 2px;
+}
+
+.nav-links a.logout {
+  color: #ef4444;
+}
+/* Hero Section */
+.hero {
+  background: linear-gradient(to right, #3b82f6, #1d4ed8);
+  color: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-primary { background: white; color: #1d4ed8; }
+.btn-secondary { background: #60a5fa; color: white; }
+.btn-accent { background: #f59e0b; color: white; }
+
+/* Stats Cards */
+.stats {
+  display: flex;
+  gap: 5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Departments */
+.departments h2, .analytics h2, .recent-activity h2, .top-departments h2, .quick-actions h2 {
+  text-align: center;
+  color: #1e3a8a;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+.department-grid, #top-departments-grid, .actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.department-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: #3B82F6;
+  width: 0;
+  transition: width 1s ease-in-out;
+}
+
+/* Analytics Chart */
+.analytics { background: white; padding: 0.5rem; border-radius: 16px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+
+/* Recent Activity */
+.recent-activity ul { list-style: none; padding: 0; }
+.recent-activity li {
+  background: white;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Quick Actions */
+.actions-grid button { margin: 0.5rem; padding: 0.75rem 1.25rem; border-radius: 10px; cursor: pointer; font-weight: 600; }
+#notifications {
+  display: flex;
+  flex-wrap: wrap;      /* allows wrapping to next line if too many */
+  gap: 1rem;            /* space between cards */
+  justify-content: center; /* center them */
+  margin-top: 1rem;
+}
+.btn-primary {
+  background: #10B981; /* green */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: #059669; /* darker green on hover */
+}
+
+#notifications div {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  min-width: 200px;      /* keeps them not too small */
+  max-width: 300px;      /* caps width so they don’t stretch too far */
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.review-applications {
+  padding: 2rem;
+  text-align: center;
+}
+
+.review-applications input {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #D1D5DB;
+  width: 100%;
+  max-width: 400px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+thead {
+  background: #3B82F6;
+  color: white;
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background: #F3F4F6;
+}
+
+button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+button.view { background: #60A5FA; }
+button.accept { background: #10B981; }
+button.decline { background: #EF4444; }
+
+.status-pending { color: #FBBF24; font-weight: 600; }
+.status-accepted { color: #10B981; font-weight: 600; }
+.status-declined { color: #EF4444; font-weight: 600; }
+

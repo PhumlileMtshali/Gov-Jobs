@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="dashboard-header">
+  <nav class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="post-jobs.html">Post Jobs</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="index.html" class="btn primary logout-btn">Log Out</a>
+  </nav>
+
+</header>
+<section class="review-applications">
+  <h1>Review Applications</h1>
+
+<input type="text" id="appSearch" placeholder="Search applicants..." />
+
+<table>
+  <thead>
+    <tr>
+      <th>Applicant Name</th>
+      <th>Job Applied</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="applicationsTable">
+    <!-- Only rows go here, headings stay in <thead> -->
+  </tbody>
+</table>
+</section>
+<script>
+  const applications = [
+  { name: "John Doe", job: "Software Engineer" },
+  { name: "Jane Smith", job: "Marketing Specialist" },
+  { name: "Mark Johnson", job: "Sales Associate" },
+];
+
+const tableBody = document.getElementById("applicationsTable"); // only tbody
+
+function displayApplications(filter = "") {
+  tableBody.innerHTML = ""; // clear tbody only
+  applications
+    .filter(app => app.name.toLowerCase().includes(filter.toLowerCase()))
+    .forEach(app => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${app.name}</td>
+        <td>${app.job}</td>
+        <td>
+          <button class="view">View</button>
+          <button class="accept">Accept</button>
+          <button class="decline">Decline</button>
+        </td>
+      `;
+      tableBody.appendChild(tr);
+    });
+}
+
+// Initial display
+displayApplications();
+
+// Search filter
+document.getElementById("appSearch").addEventListener("input", (e) => {
+  displayApplications(e.target.value);
+});
+
+</script>
+<script src="logout.js"></script>
+
+  </body>
+</html>

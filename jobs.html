@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobs</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jobs</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="style2.css" />
+  <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-   <!-- NAV -->
+ <!-- NAV -->
 <nav aria-label="Primary navigation">
   <div class="nav-inner">
     <a class="logo" href="#"><span class="seal">🏛️</span> <span>Gov Jobs SA</span></a>
@@ -17,69 +16,124 @@
       <a href="index.html" class="nav-link active">Home</a>
       <a href="applications.html" class="nav-link active">Applications</a>
       <a href="Z83.html" class="nav-link active">Z83</a>
-      <a href="Profile.html" class="nav-link active">Profile</a>
+      <a href="contacts.html" class="nav-link active">Contact Us</a>
+      <a href="faq.html" class="nav-link active">FAQs</a>
       
     </div>
     <div class="nav-actions">
-      
-      <a href="index.html" class="btn primary">Log Out</a>
+      <a href="index.html" class="btn primary logout-btn">Log Out</a>
     </div>
   </div>
 </nav>
- 
-  <br>
-  <h1>JOBS LISTINGS PAGE</h1>
-  <!-- Search Section -->
-  <section class="search-section">
-    <input type="text" id="position" name="position" placeholder="Search by Department">
-    <input type="text" id="location" name="location" placeholder="Search by Location">
-    <button type="submit">Search</button>
-  </section>
 
-  <!-- Job Listings -->
-  <div class="job-container">
-    <div class="job-card">
-      <h3>Administrative Clerk</h3>
-      <p><strong>Department:</strong> Home Affairs</p>
-      <p><strong>Location:</strong> Pretoria, Gauteng</p>
-      <p><strong>Closing Date:</strong> 31 August 2025</p>
-      <button>View More</button>
-      <button><a href="Z83.html">Apply Now</a></button>
-    </div>
+<div class="container mt-4">
+  <h2 class="mb-3">Available Jobs</h2>
+  <div id="jobsList" class="row"></div>
+</div>
 
-    <div class="job-card">
-      <h3>Administrative Clerk</h3>
-      <p><strong>Department:</strong> Home Affairs</p>
-      <p><strong>Location:</strong> Pretoria, Gauteng</p>
-      <p><strong>Closing Date:</strong> 31 August 2025</p>
-      <button>View More</button>
-      <button><a href="Z83.html">Apply Now</a></button>
-    </div>
+<footer class="footer mt-5">
+  <div class="text-center">&copy; 2025 Gov Jobs SA</div>
+</footer>
 
-    <div class="job-card">
-      <h3>Administrative Clerk</h3>
-      <p><strong>Department:</strong> Home Affairs</p>
-      <p><strong>Location:</strong> Pretoria, Gauteng</p>
-      <p><strong>Closing Date:</strong> 31 August 2025</p>
-      <button>View More</button>
-      <button><a href="Z83.html">Apply Now</a></button>
-    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ✅ Get logged-in user ID from token
+  function getUserIdFromToken() {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.id;
+    } catch {
+      return null;
+    }
+  }
 
-    <div class="job-card">
-      <h3>Administrative Clerk</h3>
-      <p><strong>Department:</strong> Home Affairs</p>
-      <p><strong>Location:</strong> Pretoria, Gauteng</p>
-      <p><strong>Closing Date:</strong> 31 August 2025</p>
-      <button>View More</button>
-      <button><a href="Z83.html">Apply Now</a></button>
-    </div>
-  </div>
-  <footer class="footer" role="contentinfo">
-      <div class="footer-bottom">
-    &copy; 2025 Gov Jobs SA — Empowering South African careers in public service.
-  </div>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+  const userId = getUserIdFromToken();
+  if (!userId) {
+    alert("You must be logged in to view jobs.");
+    window.location.href = "index.html";
+  }
+
+  // ✅ Fetch jobs from backend
+  async function loadJobs() {
+    try {
+      const res = await fetch("http://localhost:5000/api/jobs");
+      const jobs = await res.json();
+
+      const jobsList = document.getElementById("jobsList");
+      jobsList.innerHTML = "";
+
+      if (jobs.length === 0) {
+        jobsList.innerHTML = "<p>No jobs available right now.</p>";
+        return;
+      }
+
+      jobs.forEach(job => {
+        const col = document.createElement("div");
+        col.classList.add("col-md-4", "mb-3");
+
+        col.innerHTML = `
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">${job.title}</h5>
+              <p class="card-text">
+                <strong>Department:</strong> ${job.department || "N/A"}<br>
+                <strong>Location:</strong> ${job.location || "N/A"}
+              </p>
+              <button class="btn btn-primary apply-btn" data-job-id="${job.id}">Apply</button>
+            </div>
+          </div>
+        `;
+
+        jobsList.appendChild(col);
+      });
+    } catch (err) {
+      console.error("Error loading jobs:", err);
+      alert("Error loading jobs");
+    }
+  }
+
+  // ✅ Handle Apply button click
+  document.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("apply-btn")) {
+      const jobId = e.target.getAttribute("data-job-id");
+
+      try {
+        const res = await fetch("http://localhost:5000/api/applications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, jobId })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert("✅ Application submitted successfully!");
+        } else {
+          alert("⚠️ Error: " + data.error);
+        }
+      } catch (err) {
+        console.error("Error applying:", err);
+        alert("Server error while applying.");
+      }
+    }
+  });
+
+  // ✅ Load jobs on page load
+  document.addEventListener("DOMContentLoaded", loadJobs);
+
+  // ✅ Confirm logout
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("logout")) {
+      e.preventDefault();
+      if (confirm("Are you sure you want to log out?")) {
+        localStorage.removeItem("token");
+        window.location.href = "index.html";
+      }
+    }
+  });
+</script>
+<script src="logout.js"></script>
 </body>
 </html>

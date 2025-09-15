@@ -25,14 +25,12 @@
   </nav>
   <br><br><br>
 
-  <!-- Registration Form -->
   <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow mx-auto" style="max-width: 500px; width: 90%;">
       <div class="card-header text-center bg-primary text-white">
         <h4>Register</h4>
       </div>
       <div class="card-body">
-        <!-- Toggle Buttons -->
         <div class="d-flex justify-content-center mb-3 p-3">
           <button class="btn btn-outline-primary me-2 toggle-btn active" id="applicantBtn" onclick="showForm('applicant')">Applicant</button>
           <button class="btn btn-outline-primary toggle-btn p-1" id="adminBtn" onclick="showForm('admin')">HR/Admin</button>
@@ -40,29 +38,27 @@
 
         <form id="registerForm">
           <div class="mb-3">
-            <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+            <input type="text" class="form-control" id="name" placeholder="Full Name" required>
           </div>
 
           <div class="mb-3">
-            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+            <input type="email" class="form-control" id="email" placeholder="Email" required>
           </div>
 
-          <!-- Applicant ID Field -->
           <div class="mb-3" id="idField">
-            <input type="text" class="form-control" id="id_no" name="id_no" placeholder="ID No.">
+            <input type="text" class="form-control" id="id_no" placeholder="ID No.">
           </div>
 
-          <!-- Admin Employee No Field -->
           <div class="mb-3" id="employeeField" style="display: none;">
-            <input type="text" class="form-control" id="employee_no" name="employee_no" placeholder="Employee No.">
+            <input type="text" class="form-control" id="employee_no" placeholder="Employee No.">
           </div>
 
           <div class="mb-3">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password" required>
           </div>
 
           <div class="mb-3">
-            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
           </div>
 
           <div class="d-flex justify-content-center">
@@ -80,7 +76,6 @@
     </div>
   </footer>
 
-<!-- Only the form script is important; rest stays the same -->
 <script>
 function showForm(type) {
   document.getElementById('applicantBtn').classList.remove('active');
@@ -97,6 +92,11 @@ function showForm(type) {
   }
 }
 
+function isValidEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
 document.getElementById("registerForm").addEventListener("submit", async function(event) {
   event.preventDefault();
 
@@ -106,6 +106,16 @@ document.getElementById("registerForm").addEventListener("submit", async functio
   const employee_no = document.getElementById("employee_no").value.trim();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
+
+  if (!isValidEmail(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters long.");
+    return;
+  }
 
   if (password !== confirmPassword) {
     alert("Passwords do not match!");
@@ -118,6 +128,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     alert("ID No. is required for applicants.");
     return;
   }
+
   if (role === "admin" && !employee_no) {
     alert("Employee No. is required for admins.");
     return;
@@ -133,10 +144,10 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     const data = await response.json();
 
     if (response.ok) {
-      alert("Registration successful! Redirecting to login...");
+      alert(`Welcome, ${name}! Registration successful. Redirecting to login...`);
       window.location.href = "mainlogin.html";
     } else {
-      alert(data.error || "Something went wrong");
+      alert(data.error || "Something went wrong during registration.");
     }
   } catch (err) {
     console.error(err);
