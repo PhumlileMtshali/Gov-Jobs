@@ -12,11 +12,7 @@
    ============================== */
 body {
     display: flex;
-<<<<<<< HEAD
     background-color: whitesmoke;
-=======
-    background-color: #fff;
->>>>>>> 4b9d4ee2cec74008020310f69a0bd5751f98d012
     flex-direction: column;
     min-height: 100vh; /* full viewport height */
 }
