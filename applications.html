@@ -14,71 +14,65 @@
     <a class="logo" href="#"><span class="seal">🏛️</span> <span>Gov Jobs SA</span></a>
     <div class="nav-links" id="navLinks">
       <a href="index.html" class="nav-link active">Home</a>
+      <a href="applications.html" class="nav-link active">Applications</a>
       <a href="jobs.html" class="nav-link active">Jobs</a>
-      <a href="Z83.html" class="nav-link active">Z83</a>
       <a href="contacts.html" class="nav-link active">Contact Us</a>
       <a href="faq.html" class="nav-link active">FAQs</a>
-      
     </div>
     <div class="nav-actions">
       <a href="index.html" class="btn primary logout-btn">Log Out</a>
     </div>
   </div>
 </nav>
+
 <div class="container mt-4">
-  <h2 class="mb-3">My Applications</h2>
+  <h2 class="mb-3">MY APPLICATIONS</h2>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>Job Title</th>
+        <th>Department</th>
         <th>Location</th>
         <th>Status</th>
         <th>Applied On</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody id="applicationsTable">
       <tr>
-        <td colspan="4" class="text-center">Loading applications...</td>
+        <td colspan="6" class="text-center">Loading applications...</td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <footer class="footer mt-5">
-  <div class="text-center">&copy; 2025 Gov Jobs SA</div>
+  <div class="text-center">&copy; 2025 Gov Jobs SA — Empowering South African careers in public service.</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // ✅ Get logged-in user ID
-  function getUserIdFromToken() {
-    const token = localStorage.getItem("token");
-    if (!token) return null;
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.id;
-    } catch {
-      return null;
-    }
-  }
+  // ✅ Get JWT token and user ID
+  const token = localStorage.getItem("token");
+  const userId = token ? JSON.parse(atob(token.split('.')[1])).id : null;
 
-  const userId = getUserIdFromToken();
-  if (!userId) {
+  if (!token || !userId) {
     alert("You must be logged in to view applications.");
     window.location.href = "index.html";
   }
 
-  // ✅ Fetch applications
+  const headers = { "Authorization": `Bearer ${token}` };
+
+  // ✅ Load applications
   async function loadApplications() {
     try {
-      const res = await fetch(`http://localhost:5000/api/applications?userId=${userId}`);
+      const res = await fetch(`http://localhost:5000/api/applications/${userId}`, { headers });
       const apps = await res.json();
-
       const tableBody = document.getElementById("applicationsTable");
       tableBody.innerHTML = "";
 
-      if (apps.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="4" class="text-center">You have not applied for any jobs yet.</td></tr>`;
+      if (!apps.length) {
+        tableBody.innerHTML = `<tr><td colspan="6" class="text-center">You have not applied for any jobs yet.</td></tr>`;
         return;
       }
 
@@ -86,32 +80,58 @@
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${app.title}</td>
-          <td>${app.location || "N/A"}</td>
+          <td>${app.department}</td>
+          <td>${app.location}</td>
           <td>${app.status || "Pending"}</td>
           <td>${new Date(app.applied_at).toLocaleDateString()}</td>
+          <td><button class="btn btn-danger btn-sm cancel-btn" data-app-id="${app.id}">Cancel</button></td>
         `;
         tableBody.appendChild(tr);
       });
     } catch (err) {
       console.error("Error loading applications:", err);
       document.getElementById("applicationsTable").innerHTML =
-        `<tr><td colspan="4" class="text-center text-danger">Error loading applications.</td></tr>`;
+        `<tr><td colspan="6" class="text-center text-danger">Error loading applications.</td></tr>`;
     }
   }
 
-  document.addEventListener("DOMContentLoaded", loadApplications);
+  // ✅ Cancel application
+  document.addEventListener("click", async e => {
+    if (!e.target.classList.contains("cancel-btn")) return;
+    const appId = e.target.dataset.appId;
+    if (!confirm("Are you sure you want to cancel this application?")) return;
 
-  // ✅ Confirm logout
-  document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("logout")) {
-      e.preventDefault();
-      if (confirm("Are you sure you want to log out?")) {
-        localStorage.removeItem("token");
-        window.location.href = "index.html";
+    try {
+      const res = await fetch(`http://localhost:5000/api/applications/${appId}`, {
+        method: "DELETE",
+        headers
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.message);
+        loadApplications();
+      } else {
+        alert("⚠️ " + data.error);
       }
+    } catch (err) {
+      console.error("Error canceling application:", err);
+      alert("Server error while canceling application.");
     }
   });
+
+  // ✅ Logout
+  document.addEventListener("click", e => {
+    if (!e.target.classList.contains("logout-btn")) return;
+    e.preventDefault();
+    if (confirm("Are you sure you want to log out?")) {
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", loadApplications);
 </script>
 <script src="logout.js"></script>
+<script src="nav-active.js"></script>
 </body>
 </html>

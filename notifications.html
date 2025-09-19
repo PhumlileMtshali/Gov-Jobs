@@ -15,7 +15,6 @@
       <div class="nav-links" id="navLinks">
         <a href="index.html" class="nav-link active">Home</a>
         <a href="applications.html" class="nav-link active">Applications</a>
-        <a href="Z83.html" class="nav-link active">Z83</a>
         <a href="contacts.html" class="nav-link active">Contact Us</a>
         <a href="faq.html" class="nav-link active">FAQs</a>
         <a href="notifications.html" class="nav-link active">Notifications</a>
@@ -27,7 +26,7 @@
   </nav>
 
   <div class="container mt-4">
-    <h2 class="mb-3">My Notifications</h2>
+    <h2 class="mb-3">NOTIFICATIONS</h2>
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
         <thead class="table-dark">
@@ -52,34 +51,26 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // ✅ Get logged-in user ID from token
-    function getUserIdFromToken() {
-      const token = localStorage.getItem("token");
-      if (!token) return null;
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        return payload.id;
-      } catch {
-        return null;
-      }
-    }
+    const token = localStorage.getItem("token");
+    const userId = token ? JSON.parse(atob(token.split('.')[1])).id : null;
 
-    const userId = getUserIdFromToken();
-    if (!userId) {
+    if (!token || !userId) {
       alert("You must be logged in to view notifications.");
       window.location.href = "index.html";
     }
 
+    const headers = { "Authorization": `Bearer ${token}` };
+
     // ✅ Load notifications
     async function loadNotifications() {
       try {
-        const res = await fetch(`http://localhost:5000/api/notifications/${userId}`);
+        const res = await fetch(`http://localhost:5000/api/notifications/${userId}`, { headers });
         const notifs = await res.json();
 
         const tbody = document.getElementById("notifTableBody");
         tbody.innerHTML = "";
 
-        if (notifs.length === 0) {
+        if (!notifs.length) {
           tbody.innerHTML = `<tr><td colspan="3" class="text-center">No notifications yet.</td></tr>`;
           return;
         }
@@ -111,9 +102,9 @@
       }
     });
 
-    // Load on page start
     document.addEventListener("DOMContentLoaded", loadNotifications);
   </script>
   <script src="logout.js"></script>
+  <script src="nav-active.js"></script>
 </body>
 </html>

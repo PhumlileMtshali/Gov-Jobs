@@ -32,7 +32,86 @@ main, .job-container, .applications, .container, .form-container {
 /* ==============================
    NAVBAR
    ============================== */
+
 nav {
+      background-color: #003366;
+      padding: 0.8rem 2rem;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .logo .seal { margin-right: 5px; }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      color: white;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+.nav-links a:hover { background: rgba(255,255,255,0.05); transform: translateY(-3px); }
+
+.nav-links a.active {
+  background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  color: #fff;}
+
+    /* NAVIGATION BUTTONS */
+.nav-actions .btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Primary button (Sign Up) */
+.nav-actions .btn.primary {
+  background-color: #0d6efd; /* Bootstrap primary */
+  color: white;
+  border: none;
+}
+
+/* Ghost button (Login) */
+.nav-actions .btn.ghost {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 999px;
+}
+
+/* Hover effect for both buttons */
+.nav-actions .btn:hover {
+  background: rgba(255,255,255,0.05); transform: translateY(-3px);
+}
+
+/* Active effect for buttons */
+.nav-actions .btn.active {
+   background: linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  color: #fff;
+ 
+}
+/*nav {
     background-color: #003366;
     padding: 0.8rem 2rem;
     color: white;
@@ -71,18 +150,21 @@ nav {
 }
 
 .nav-actions .btn { margin-left: 10px;
-border-radius: 999px; }
+border-radius: 999px; }*/
 
 
 
 /* ==============================
    HEADINGS
    ============================== */
-h1, h2, h3, h4 {
-    color: #003366;
+h1, h2, h3 {color: #003366;
     font-weight: bold;
     margin-bottom: 1rem;
     text-align: center;
+}
+
+h4{color: #fff;
+
 }
 
 p { color: #333; font-size: 1.05rem; line-height: 1.6; text-align: center; }
@@ -323,11 +405,12 @@ margin-top: 20px;}
 }
 
 .form-container {
-    max-width: 900px;
+    width: 900px;
     margin: auto;
     border: 1px solid #003366; /* replaced green border with dark blue */
     padding: 25px;
     background-color: #f0f8ff; /* light blue background */
+    margin-bottom: 50px;
 }
 
 h3 {

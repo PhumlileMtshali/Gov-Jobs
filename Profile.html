@@ -1,211 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profile Section</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="style2.css">
 </head>
 <body>
 <nav aria-label="Primary navigation">
   <div class="nav-inner">
-    <a class="logo" href="#"><span class="seal">🏛️</span> Gov Jobs SA</a>
+    <a class="logo" href="#"><span class="seal">🏛</span> Gov Jobs SA</a>
     <div class="nav-links" id="navLinks">
       <a href="index.html" class="nav-link active">Home</a>
-      <a href="jobs.html" class="nav-link active">Jobs</a>
       <a href="applications.html" class="nav-link active">Applications</a>
-      <a href="Z83.html" class="nav-link active">Z83</a>
+      <a href="jobs.html" class="nav-link active">Jobs</a>
+      <a href="profile.html" class="nav-link active">Profile</a>
       <a href="about.html" class="nav-link active">About Us</a>
       <a href="contacts.html" class="nav-link active">Contact Us</a>
-      
     </div>
     <div class="nav-actions">
-      <a href="index.html" class="btn primary logout-btn">Log Out</a>
-
+      <a href="index.html" class="btn primary logout-btn">Logout</a>
     </div>
   </div>
 </nav>
 
-<br>
-<section class="profile-section container">
-  <h2>Personal Details</h2>
-  <form id="profileForm" class="profile-form" enctype="multipart/form-data">
-    <div class="row">
-      <div class="col-md-6 form-group">
-        <label for="fullName">Full Name:</label>
-        <input type="text" id="fullName" name="fullName" class="form-control" readonly>
-      </div>
-      <div class="col-md-6 form-group">
-        <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" class="form-control" required>
-      </div>
-    </div>
+<div class="form-header">
+  <div class="form-title">
+    <h1>MY PROFILE</h1>
+  </div>
+</div>
 
-    <div class="row">
-      <div class="col-md-6 form-group">
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" class="form-control" required>
-          <option value="">-- Select --</option>
-          <option value="female">Female</option>
-          <option value="male">Male</option>
+<div class="form-container">
+  <form id="profileForm">
+    <!-- Section A: Personal Information -->
+    <section>
+      <h3>A. PERSONAL INFORMATION</h3>
+      <label>Full Name *:<br><input type="text" name="full_name" required></label>
+      <div class="row-3">
+        <label>DOB *:<br><input type="date" name="dob" required></label>
+        <label>ID Number :<br><input type="text" name="id_number" required></label>
+        <label>Passport Number:<br><input type="text" name="passport"></label>
+      </div>
+      <div class="row-3">
+        <label>Race *:<br>
+          <select name="race" required>
+            <option value="">Select</option>
+            <option>African</option>
+            <option>White</option>
+            <option>Coloured</option>
+            <option>Indian</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>Gender *:<br>
+          <select name="gender" required>
+            <option value="">Select</option>
+            <option>Female</option>
+            <option>Male</option>
+          </select>
+        </label>
+        <label>Disability *:<br>
+          <select name="disability" required>
+            <option value="">Select</option>
+            <option>No</option>
+            <option>Yes</option>
+          </select>
+        </label>
+      </div>
+      <label>South African Citizen? *:<br>
+        <select name="sa_citizen" required>
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </label>
+      <label>If No, nationality :<br><input type="text" name="nationality" required></label>
+      <label>Valid work permit? *:<br>
+        <select name="work_permit" required>
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </label>
+
+      <!-- Criminal & Employment Details -->
+      <label>Criminal Convicted? *:<br>
+        <select name="criminal_convicted" required>
+          <option value="">Select</option>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <input type="text" name="criminal_details" placeholder="If yes, provide details " required>
+      </label>
+      <label>Pending criminal case? *:<br>
+        <select name="pending_case" required>
+          <option value="">Select</option>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <input type="text" name="pending_case_details" placeholder="If yes, provide details " required>
+      </label>
+      <label>Dismissed for misconduct? *:<br>
+        <select name="dismissed_ps" required>
+          <option value="">Select</option>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <input type="text" name="dismissal_details" placeholder="If yes, provide details " required>
+      </label>
+      <label>Pending disciplinary case? *:<br>
+        <select name="disciplinary_pending" required>
+          <option value="">Select</option>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <input type="text" name="disciplinary_details" placeholder="If yes, provide details " required>
+      </label>
+      <label>Resigned pending disciplinary? *:<br>
+        <select name="resigned_pending" required>
+          <option value="">Select</option>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+      </label>
+      <label>Discharged/retired on ill-health? :<br>
+        <select name="discharged_ps" required>
+          <option value="">Select</option>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+      </label>
+      <label>Business with state? :<br>
+        <select name="business_state" required>
+          <option value="">Select</option>
+          <option>No</option>
+          <option>Yes</option>
+        </select>
+        <input type="text" name="business_details" placeholder="If yes, provide details " required>
+      </label>
+
+    <!-- Section B: Contact -->
+    <section>
+      <h3>B. CONTACT DETAILS</h3>
+      <label>Preferred language *:<br><input type="text" name="preferred_language" required></label>
+      <label>Correspondence method *:<br>
+        <input type="checkbox" name="correspondence_method" value="Post"> Post
+        <input type="checkbox" name="correspondence_method" value="Email"> Email
+        <input type="checkbox" name="correspondence_method" value="Fax"> Fax
+        <input type="checkbox" name="correspondence_method" value="Telephone"> Telephone
+      </label>
+      <label>Contact info *:<br><input type="text" name="contact_info" required></label>
+    </section>
+
+    <!-- Section C: Languages -->
+    <section>
+      <h3>C. OFFICIAL LANGUAGE PROFICIENCY</h3>
+      <div class="language-table">
+        <label>Language 1 *:<br><input type="text" name="lang1" required></label>
+        <label>Speak *:<br><input type="text" name="speak1" required></label>
+        <label>Read/Write *:<br><input type="text" name="read1" required></label>
+
+        <label>Language 2 :<br><input type="text" name="lang2" required></label>
+        <label>Speak :<br><input type="text" name="speak2" required></label>
+        <label>Read/Write :<br><input type="text" name="read2" required></label>
+
+        <label>Language 3 :<br><input type="text" name="lang3" required></label>
+        <label>Speak :<br><input type="text" name="speak3" required></label>
+        <label>Read/Write :<br><input type="text" name="read3" required></label>
+      </div>
+    </section>
+
+    <!-- Section D: Qualifications -->
+    <section>
+      <h3>D. QUALIFICATIONS</h3>
+      <div class="qualification-table">
+        <label>School 1 *:<br><input type="text" name="school1" required></label>
+        <label>Qualification 1 *:<br><input type="text" name="qual1" required></label>
+        <label>Year 1 *:<br><input type="text" name="year1" required></label>
+
+        <label>School 2 :<br><input type="text" name="school2" required></label>
+        <label>Qualification 2 :<br><input type="text" name="qual2" required></label>
+        <label>Year 2 :<br><input type="text" name="year2" required></label>
+
+        <label>School 3 :<br><input type="text" name="school3" required></label>
+        <label>Qualification 3 :<br><input type="text" name="qual3" required></label>
+        <label>Year 3 :<br><input type="text" name="year3" required></label>
+      </div>
+      <label>Current study :<br><input type="text" name="current_study" required></label>
+    </section>
+
+    <!-- Section E: Work Experience -->
+    <section>
+      <h3>E. WORK EXPERIENCE</h3>
+      <div class="work-entry">
+        <label>Employer 1 :<br><input type="text" name="employer1" required></label>
+        <label>Post held 1 :<br><input type="text" name="post1" required></label>
+        <label>Reason for leaving 1 :<br><input type="text" name="reason1" required></label>
+
+        <label>Employer 2 :<br><input type="text" name="employer2" required></label>
+        <label>Post held 2 :<br><input type="text" name="post2" required></label>
+        <label>Reason for leaving 2 :<br><input type="text" name="reason2" required></label>
+      </div>
+
+      <!-- Section F: References -->
+    <section>
+      <h3>F. REFERENCES</h3>
+      <div class="reference-table">
+        <label>Name 1 :<br><input type="text" name="ref_name1" required></label>
+        <label>Relationship 1 :<br><input type="text" name="ref_rel1" required></label>
+        <label>Tel 1 :<br><input type="text" name="ref_tel1" required></label>
+
+        <label>Name 2 :<br><input type="text" name="ref_name2" required></label>
+        <label>Relationship 2 :<br><input type="text" name="ref_rel2" required></label>
+        <label>Tel 2 :<br><input type="text" name="ref_tel2" required></label>
+      </div>
+    </section>
+
+    <!-- Section G: Supporting Documents -->
+    <section>
+      <h3>G. SUPPORTING DOCUMENTS</h3>
+      <label>Document Type *:<br>
+        <select id="docType" required>
+          <option value="">Select</option>
+          <option value="cv">CV</option>
+          <option value="certificate">Certificate</option>
+          <option value="id">ID Copy</option>
+          <option value="work_permit">Work Permit</option>
           <option value="other">Other</option>
         </select>
-      </div>
-      <div class="col-md-6 form-group">
-        <label for="race">Race:</label>
-        <select id="race" name="race" class="form-control">
-          <option value="">-- Select --</option>
-          <option value="african">African</option>
-          <option value="coloured">Coloured</option>
-          <option value="indian">Indian</option>
-          <option value="white">White</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="contactNumber">Contact Number:</label>
-      <input type="tel" id="contactNumber" name="contactNumber" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email Address:</label>
-      <input type="email" id="email" name="email" class="form-control" readonly>
-    </div>
-
-    <div class="form-group">
-      <label for="residentialAddress">Residential Address:</label>
-      <textarea id="residentialAddress" name="residentialAddress" class="form-control" rows="3"></textarea>
-    </div>
-
-    <hr>
-    <h2>Supporting Documents</h2>
-
-    <div class="row">
-      <div class="col-md-6 form-group">
-        <label for="docType">Select Document Type:</label>
-        <select id="docType" name="docType" class="form-control" required>
-          <option value="">-- Select Document Type --</option>
-          <option value="cv">CV / Resume</option>
-          <option value="id">Identity Document</option>
-          <option value="matric">Matric Certificate</option>
-          <option value="qualifications">Qualifications</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="col-md-6 form-group">
-        <label for="supportingDocs">Upload Document:</label>
-        <input type="file" id="supportingDocs" name="supportingDocs" class="form-control">
-        <small class="form-text text-muted">Allowed formats: PDF & DOCX</small>
-      </div>
-    </div>
-
-    <div id="uploadedDocs" class="mt-3">
+      </label>
+      <label>Upload Document *:<br><input type="file" id="docUpload" multiple required></label><br>
+      <button type="button" onclick="addDocument()">Add Document</button>
       <h5>Uploaded Documents:</h5>
-      <ul class="list-group" id="docsList"></ul>
-    </div>
+      <ul id="uploadedDocs"></ul>
+    </section>
 
-    <div class="form-actions mt-4">
-      <button type="submit" class="btn btn-success">Save Profile</button>
+    <!-- Declaration -->
+    <section>
+      <h3>DECLARATION</h3>
+      <label>I declare that all information is correct.</label>
+      <label>Signature *:<br><input type="text" name="signature" required></label>
+      <label>Date *:<br><input type="date" name="sign_date" required></label>
+    </section>
+
+    <div class="form-buttons">
+      <button type="button" class="btn save-btn" onclick="submitForm()">Save</button>
     </div>
   </form>
-</section>
+</div>
 
-<footer class="footer mt-5" role="contentinfo">
-  <div class="footer-bottom">
-    &copy; 2025 Gov Jobs SA — Empowering South African careers in public service.
-  </div>
+<footer class="footer">
+  <div class="footer-bottom">&copy; 2025 Gov Jobs SA — Empowering South African careers in public service.</div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 <script>
-  function getUserIdFromToken() {
-    const token = localStorage.getItem("token");
-    if (!token) return null;
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.id;
-    } catch {
-      return null;
-    }
+let uploadedDocs = [];
+
+function addDocument() {
+  const files = document.getElementById('docUpload').files;
+  const type = document.getElementById('docType').value;
+  const list = document.getElementById('uploadedDocs');
+
+  for (let i = 0; i < files.length; i++) {
+    uploadedDocs.push({ file: files[i], type: type });
+    const li = document.createElement('li');
+    li.textContent = `${files[i].name} (${type})`;
+    list.appendChild(li);
   }
 
-  const userId = getUserIdFromToken();
-  if (!userId) {
-    alert("You must be logged in to access this page.");
-    window.location.href = "index.html";
-  }
+  document.getElementById('docUpload').value = '';
+}
 
-  // Load profile & user info
-  document.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const res = await fetch(`http://localhost:5000/api/profile/${userId}`);
-      if (res.ok) {
-        const data = await res.json();
-        document.getElementById("fullName").value = data.full_name || "";
-        document.getElementById("dob").value = data.dob || "";
-        document.getElementById("gender").value = data.gender || "";
-        document.getElementById("race").value = data.race || "";
-        document.getElementById("contactNumber").value = data.contact_number || "";
-        document.getElementById("email").value = data.email || "";
-        document.getElementById("residentialAddress").value = data.residential_address || "";
+async function submitForm() {
+  const form = document.getElementById('profileForm');
+  const formData = new FormData();
 
-        // Show uploaded docs
-        const docsList = document.getElementById("docsList");
-        docsList.innerHTML = "";
-        if (data.documents) {
-          data.documents.forEach(doc => {
-            const li = document.createElement("li");
-            li.classList.add("list-group-item");
-            li.textContent = `${doc.doc_type}: ${doc.file_name}`;
-            docsList.appendChild(li);
-          });
-        }
-      }
-    } catch (err) {
-      console.error("Error loading profile", err);
+  Array.from(form.elements).forEach(el => {
+    if (!el.name) return;
+    if (el.type === "checkbox") {
+      if (el.checked) formData.append(el.name, el.value);
+    } else {
+      formData.append(el.name, el.value.trim());
     }
   });
 
-  // Save profile + upload document
-  document.getElementById("profileForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const profileData = new FormData();
-    profileData.append("userId", userId);
-    profileData.append("id_number", document.getElementById("fullName").value); // optional if using separate ID
-    profileData.append("dob", document.getElementById("dob").value);
-    profileData.append("gender", document.getElementById("gender").value);
-    profileData.append("race", document.getElementById("race").value);
-    profileData.append("contact_number", document.getElementById("contactNumber").value);
-    profileData.append("residential_address", document.getElementById("residentialAddress").value);
-
-    const fileInput = document.getElementById("supportingDocs");
-    if (fileInput.files.length > 0) {
-      profileData.append("supportingDocs", fileInput.files[0]);
+  // Validation: no empty fields
+  for (let [key, value] of formData.entries()) {
+    if (!value || value.trim() === "") {
+      alert(`Please fill in all fields. If not applicable, write "N/A". Missing: ${key}`);
+      return;
     }
+  }
 
-    try {
-      const res = await fetch("http://localhost:5000/api/profile", {
-        method: "POST",
-        body: profileData
-      });
-      if (res.ok) {
-        alert("Profile saved successfully!");
-        location.reload();
-      } else {
-        const err = await res.json();
-        alert("Error saving profile: " + (err.error || "Unknown error"));
-      }
-    } catch (err) {
-      console.error("Error saving profile", err);
-      alert("Error connecting to server");
-    }
+  // Append uploaded files
+  uploadedDocs.forEach((doc, index) => {
+    formData.append(`supporting_docs_${index}`, doc.file);
+    formData.append(`doc_type_${index}`, doc.type);
   });
+
+  formData.append('user_id', localStorage.getItem('userId') || 1);
+
+  try {
+    const res = await fetch('http://localhost:5000/save-profile', {
+      method: 'POST',
+      body: formData,
+      headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+    });
+    const result = await res.json();
+    if (result.success) alert('Profile saved successfully!');
+    else alert('Error saving profile');
+  } catch (err) {
+    console.error(err);
+    alert('Server error');
+  }
+}
+
+// Lock profile page for logged-in users
+if (!localStorage.getItem("token")) {
+  alert("Please log in to access your profile");
+  window.location.href = "index.html"; 
+}
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="logout.js"></script>
+<script src="nav-active.js"></script>
 </body>
 </html>

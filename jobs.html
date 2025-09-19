@@ -3,176 +3,180 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jobs</title>
+  <title>Available Jobs</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style2.css">
+  <style>
+    .job-card {
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 12px;
+      width: 450px;
+    }
+    .job-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .apply-btn {
+      border-radius: 20px;
+    }
+    .badge {
+      font-size: 0.8rem;
+      margin-right: 5px;
+    }
+
+    /* Notification dropdown scroll */
+.dropdown-menu {
+  max-height: 300px;   /* adjust height as you like */
+  overflow-y: auto;    /* enable vertical scroll */
+  overflow-x: hidden;  /* prevent horizontal scroll */
+}
+
+  </style>
 </head>
 <body>
-<!-- NAV -->
-<nav aria-label="Primary navigation">
-  <div class="nav-inner">
-    <a class="logo" href="#"><span class="seal">🏛️</span> <span>Gov Jobs SA</span></a>
-    <div class="nav-links" id="navLinks">
-      <a href="index.html" class="nav-link active">Home</a>
-      <a href="applications.html" class="nav-link active">Applications</a>
-      <a href="Z83.html" class="nav-link active">Z83</a>
-      <a href="contacts.html" class="nav-link active">Contact Us</a>
-      <a href="faq.html" class="nav-link active">FAQs</a>
-      <a href="notifications.html" class="nav-link active">Notifications</a>
-    </div>
+  <!-- NAV -->
+  <nav aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="logo" href="#"><span class="seal">🏛️</span> <span>Gov Jobs SA</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="applications.html" class="nav-link active">Applications</a>
+        <a href="jobs.html" class="nav-link active">Jobs</a>
+        <a href="contacts.html" class="nav-link active">Contact Us</a>
+        <a href="faq.html" class="nav-link active">FAQs</a>
+        <a href="notifications.html" class="nav-link active">Notifications</a>
+      </div>
 
-    <!-- 🔔 Notification Bell -->
-    <div class="dropdown me-3">
-      <button class="btn btn-light position-relative" id="notifBell" data-bs-toggle="dropdown">
-        🔔
-        <span id="notifCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end" id="notifList">
-        <li><span class="dropdown-item-text">No new notifications</span></li>
-      </ul>
-    </div>
+      <div class="dropdown me-3">
+        <button class="btn btn-light position-relative" id="notifBell" data-bs-toggle="dropdown">
+          🔔
+          <span id="notifCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" id="notifList">
+          <li><span class="dropdown-item-text">No new notifications</span></li>
+        </ul>
+      </div>
 
-    <div class="nav-actions">
-      <a href="index.html" class="btn primary logout-btn">Log Out</a>
+      <div class="nav-actions">
+        <a href="index.html" class="btn primary logout-btn">Log Out</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h2 class="mb-4">JOB LISTINGS PAGE</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="jobsContainer">
+      <div class="col text-center">Loading jobs...</div>
     </div>
   </div>
-</nav>
 
-<div class="container mt-4">
-  <h2 class="mb-3">Available Jobs</h2>
-  <div id="jobsList" class="row"></div>
-</div>
+  <footer class="footer mt-5">
+    <div class="text-center">&copy; 2025 Gov Jobs SA — Empowering South African careers in public service.</div>
+  </footer>
 
-<footer class="footer mt-5">
-  <div class="text-center">&copy; 2025 Gov Jobs SA</div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  function getUserIdFromToken() {
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
     const token = localStorage.getItem("token");
-    if (!token) return null;
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.id;
-    } catch {
-      return null;
-    }
-  }
+    if (!token) { alert("Login required"); window.location.href="index.html"; }
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
 
-  const userId = getUserIdFromToken();
-  if (!userId) {
-    alert("You must be logged in to view jobs.");
-    window.location.href = "index.html";
-  }
+    async function loadJobs() {
+      try {
+        const res = await fetch("http://localhost:5000/api/jobs");
+        const jobs = await res.json();
+        const container = document.getElementById("jobsContainer");
+        container.innerHTML = "";
 
-  async function loadJobs() {
-    try {
-      const res = await fetch("http://localhost:5000/api/jobs");
-      const jobs = await res.json();
+        if (!jobs.length) {
+          container.innerHTML = `<div class="col text-center">No jobs available at the moment.</div>`;
+          return;
+        }
 
-      const jobsList = document.getElementById("jobsList");
-      jobsList.innerHTML = "";
+        jobs.forEach(job => {
+          const col = document.createElement("div");
+          col.className = "col";
 
-      if (jobs.length === 0) {
-        jobsList.innerHTML = "<p>No jobs available right now.</p>";
-        return;
-      }
-
-      jobs.forEach(job => {
-        const col = document.createElement("div");
-        col.classList.add("col-md-4", "mb-3");
-
-        col.innerHTML = `
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">${job.title}</h5>
-              <p class="card-text">
-                <strong>Department:</strong> ${job.department || "N/A"}<br>
-                <strong>Location:</strong> ${job.location || "N/A"}
-              </p>
-              <button class="btn btn-primary apply-btn" data-job-id="${job.id}">Apply</button>
+          col.innerHTML = `
+            <div class="card job-card h-100">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">${job.title}</h5>
+                <p class="card-text">${job.description}</p>
+                <p class="mb-2"><strong>Department:</strong> ${job.department}</p>
+                <p class="mb-2"><strong>Location:</strong> ${job.location}</p>
+                <p class="mb-3"><small class="text-muted">Closing: ${new Date(job.closing_date).toLocaleDateString()}</small></p>
+                <button class="btn btn-primary mt-auto apply-btn" data-job-id="${job.id}">Apply</button>
+              </div>
             </div>
-          </div>
-        `;
-
-        jobsList.appendChild(col);
-      });
-    } catch (err) {
-      console.error("Error loading jobs:", err);
-      alert("Error loading jobs");
+          `;
+          container.appendChild(col);
+        });
+      } catch (err) {
+        console.error(err); 
+        alert("Error loading jobs");
+      }
     }
-  }
 
-  document.addEventListener("click", async (e) => {
-    if (e.target.classList.contains("apply-btn")) {
-      const jobId = e.target.getAttribute("data-job-id");
+    document.addEventListener("click", async e => {
+      if (!e.target.classList.contains("apply-btn")) return;
+      const jobId = Number(e.target.dataset.jobId);
+      if (!jobId) { alert("Invalid job ID"); return; }
 
       try {
         const res = await fetch("http://localhost:5000/api/applications", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: userId, job_id: jobId }) // ✅ fixed keys
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({ job_id: jobId })
         });
-
         const data = await res.json();
+        console.log("Apply response:", data);
 
         if (res.ok) {
-          alert("✅ Application submitted successfully!");
+          alert(data.message || "✅ Application submitted!");
           loadNotifications();
         } else {
-          alert("⚠️ Error: " + data.error);
+          alert("⚠️ " + (data.error || "Error applying"));
         }
       } catch (err) {
-        console.error("Error applying:", err);
-        alert("Server error while applying.");
+        console.error("Server error:", err);
+        alert("Server error applying");
       }
+    });
+
+    async function loadNotifications() {
+      try {
+        const res = await fetch(`http://localhost:5000/api/notifications/${userId}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const notifs = await res.json();
+        const notifCount = document.getElementById("notifCount");
+        const notifList = document.getElementById("notifList");
+        notifList.innerHTML = "";
+        if (!notifs.length) {
+          notifList.innerHTML="<li><span class='dropdown-item-text'>No new notifications</span></li>";
+          notifCount.textContent="0";
+          return;
+        }
+        notifCount.textContent = notifs.length;
+        notifs.forEach(n => {
+          const li = document.createElement("li");
+          li.innerHTML=`<span class="dropdown-item-text">${n.message}</span>`;
+          notifList.appendChild(li);
+        });
+      } catch (err) { console.error(err); }
     }
-  });
 
-  async function loadNotifications() {
-    try {
-      const res = await fetch(`http://localhost:5000/api/notifications/${userId}`);
-      const notifs = await res.json();
+    document.addEventListener("DOMContentLoaded", () => { loadJobs(); loadNotifications(); });
 
-      const notifCount = document.getElementById("notifCount");
-      const notifList = document.getElementById("notifList");
-
-      notifList.innerHTML = "";
-
-      if (notifs.length === 0) {
-        notifList.innerHTML = "<li><span class='dropdown-item-text'>No new notifications</span></li>";
-        notifCount.textContent = "0";
-        return;
-      }
-
-      const unread = notifs.filter(n => !n.is_read);
-      notifCount.textContent = unread.length;
-
-      notifs.forEach(n => {
-        const li = document.createElement("li");
-        li.innerHTML = `<span class="dropdown-item-text">${n.message}</span>`;
-        notifList.appendChild(li);
-      });
-    } catch (err) {
-      console.error("Error fetching notifications:", err);
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    loadJobs();
-    loadNotifications();
-  });
-
-  document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("logout-btn")) {
+    document.addEventListener("click", e => {
+      if (!e.target.classList.contains("logout-btn")) return;
       e.preventDefault();
-      if (confirm("Are you sure you want to log out?")) {
-        localStorage.removeItem("token");
-        window.location.href = "index.html";
-      }
-    }
-  });
-</script>
+      if (confirm("Log out?")) { localStorage.removeItem("token"); window.location.href="index.html"; }
+    });
+  </script>
+  <script src="nav-active.js"></script>
+  <script src="logout.js"></script>
 </body>
 </html>
