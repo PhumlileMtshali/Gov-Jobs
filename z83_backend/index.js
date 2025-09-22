@@ -59,17 +59,19 @@ const authenticateToken = (req, res, next) => {
 };
 
 // ---------------- FILE UPLOAD ----------------
+// Configure storage (files saved in /uploads folder)
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    if (!fs.existsSync("./uploads")) fs.mkdirSync("./uploads");
-    cb(null, "./uploads");
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
   },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
-  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  }
 });
+
+// Initialize multer instance
 const upload = multer({ storage });
+
 
 // ---------------- REGISTER ----------------
 app.post("/api/auth/register", async (req, res) => {
@@ -153,6 +155,31 @@ app.post("/save-profile", authenticateToken, upload.array("supporting_docs"), as
     res.status(500).json({ success: false, message: "Server error" });
   }
 });
+
+// GET user profile
+app.get("/get-profile/:id", authenticateToken, async (req, res) => {
+  const userId = Number(req.params.id);
+  if (!userId) {
+    return res.status(400).json({ success: false, message: "Invalid user ID" });
+  }
+
+  try {
+    const query = "SELECT * FROM profiles WHERE user_id = $1";
+    const result = await pool.query(query, [userId]);
+
+    if (result.rows.length === 0) {
+      // ✅ Profile does not exist
+      return res.json({ success: true, profile: null });
+    }
+
+    // Profile exists
+    res.json({ success: true, profile: result.rows[0] });
+  } catch (err) {
+    console.error("Error fetching profile:", err);
+    res.status(500).json({ success: false, message: "Server error fetching profile" });
+  }
+});
+
 
 // ---------------- JOB ROUTES ----------------
 app.get("/api/jobs", async (req, res) => {

@@ -81,13 +81,17 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const data = await res.json();
     console.log("Backend login response:", data, "HTTP status:", res.status);
 
-    if (res.ok) {
-      // ✅ Store login info
+    if (res.ok && data.token) {
+      // ✅ Store JWT token
       localStorage.setItem("token", data.token);
-      localStorage.setItem("role", data.role);  // crucial for redirect
-      localStorage.setItem("userId", data.userId);
+      localStorage.setItem("role", data.role || "user");  // default role 'user'
       localStorage.setItem("userEmail", email);
 
+      // ✅ Extract userId from JWT payload
+      const payload = JSON.parse(atob(data.token.split('.')[1]));
+      localStorage.setItem("userId", payload.id);
+
+      console.log("Stored userId in localStorage:", payload.id);
       console.log("Stored role in localStorage:", data.role);
 
       // ✅ Redirect based on role
@@ -95,7 +99,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         console.log("Redirecting to dashboard...");
         window.location.href = "dashboard.html";
       } else {
-        console.log("Redirecting to jobs page...");
+        console.log("Redirecting to profile page...");
         window.location.href = "profile.html";
       }
     } else {
@@ -107,6 +111,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   }
 });
 </script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="nav-active.js"></script>

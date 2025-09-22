@@ -261,6 +261,7 @@
 <script>
 let uploadedDocs = [];
 
+// Add document to list
 function addDocument() {
   const files = document.getElementById('docUpload').files;
   const type = document.getElementById('docType').value;
@@ -276,6 +277,7 @@ function addDocument() {
   document.getElementById('docUpload').value = '';
 }
 
+// Submit profile form
 async function submitForm() {
   const form = document.getElementById('profileForm');
   const formData = new FormData();
@@ -298,12 +300,13 @@ async function submitForm() {
   }
 
   // Append uploaded files
-  uploadedDocs.forEach((doc, index) => {
-    formData.append(`supporting_docs_${index}`, doc.file);
-    formData.append(`doc_type_${index}`, doc.type);
-  });
+uploadedDocs.forEach((doc) => {
+  formData.append("supporting_docs", doc.file); // same name for all files
+  formData.append("doc_types[]", doc.type);     // separate field for doc type
+});
 
-  formData.append('user_id', localStorage.getItem('userId') || 1);
+
+  formData.append('user_id', localStorage.getItem('userId'));
 
   try {
     const res = await fetch('http://localhost:5000/save-profile', {
@@ -311,21 +314,26 @@ async function submitForm() {
       body: formData,
       headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
     });
+
     const result = await res.json();
-    if (result.success) alert('Profile saved successfully!');
-    else alert('Error saving profile');
+
+if (result.success) {
+  alert("Profile saved successfully!");
+  window.location.href = "jobs.html";   // ✅ redirect when profile created
+} else if (result.exists) {
+  alert("Profile already exists! Redirecting to jobs...");
+  window.location.href = "jobs.html";   // ✅ redirect if profile already exists
+} else {
+  alert("Error saving profile: " + (result.message || "Please try again"));
+}
   } catch (err) {
     console.error(err);
     alert('Server error');
   }
 }
-
-// Lock profile page for logged-in users
-if (!localStorage.getItem("token")) {
-  alert("Please log in to access your profile");
-  window.location.href = "index.html"; 
-}
 </script>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="logout.js"></script>
